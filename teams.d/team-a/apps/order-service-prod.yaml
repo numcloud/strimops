@@ -1,0 +1,16 @@
+name: order-service
+description: Order lifecycle events
+
+clusters:
+  production: prod-eu-west
+
+topics:
+  - name: order.created
+    partitions: 12
+    retention: 7d
+    replication: 3
+    visibility: domain # domain or internal(for internal use only)
+    schema: order-created-v1.avsc
+    consumers:
+      - app: payment-service
+        team: payment-processing
